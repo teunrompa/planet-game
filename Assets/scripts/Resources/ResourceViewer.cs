@@ -5,7 +5,7 @@ public class ResourceViewer : MonoBehaviour
 {
     public TMP_Text moneyText;
     public TMP_Text populationText;
-    
+
     private Resources _resources;
     
     private void Start()
@@ -22,6 +22,6 @@ public class ResourceViewer : MonoBehaviour
     {
         //Update the resources ui
         moneyText.text = "Money: " + _resources.money;
-        populationText.text = "Population: " + _resources.globalPopulation;
+        populationText.text = "Population: " + _resources.globalPopulation + " / " + _resources.maxPopulation;
     }
 }
