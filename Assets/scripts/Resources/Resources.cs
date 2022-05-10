@@ -29,6 +29,7 @@ public class Resources : MonoBehaviour
 
    public void AddPopulation(int amount)
    {
-      globalPopulation += amount;
+      if(globalPopulation < maxPopulation)
+         globalPopulation += amount;
    }
 }

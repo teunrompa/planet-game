@@ -40,6 +40,7 @@ public class Building : MonoBehaviour
           
           //check if the ray has hit something
           if (!Physics.Raycast(ray, out hit)) return;
+          print("click");
           BuildingClickEvent?.Invoke(this, new BuildingArgs { hitData = hit} );
      }
 }

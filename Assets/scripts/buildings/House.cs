@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class House : Building
@@ -7,13 +9,29 @@ public class House : Building
     [SerializeField] private float tickSpeed = 0.3f;
     private float _timePassed;
 
+    private void Start()
+    {
+        BuildingClickEvent += OnHouseClick;
+    }
+
     private void Update()
     {
         _timePassed += Time.deltaTime;
-        if (_timePassed > tickSpeed && inhabitants < maxInhabitants)
-        {
-            _timePassed = 0;
-            resources.AddPopulation(2);
-        }
+        
+        if (!(_timePassed > tickSpeed) || !(inhabitants < maxInhabitants)) return;
+        _timePassed = 0;
+        
+        resources.AddPopulation(2);
     }
+
+
+    private void OnHouseClick(object sender, BuildingArgs e)
+    {
+        RaycastHit hit = e.hitData;
+        
+        if(hit.transform.GetComponent<House>() == null) return;
+        
+        resources.AddPopulation(2);
+    }
+
 }

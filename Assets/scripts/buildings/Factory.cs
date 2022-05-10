@@ -8,29 +8,36 @@ public class Factory : Building
 {
     [SerializeField] public float moneyOnClick = 200;
     [SerializeField] private float passiveIncome = 20;
+    [SerializeField] private float tickSpeed = 1f;
+    private float _timePassed;
+
 
     private void Start()
     {
         BuildingClickEvent += generateMoney;
-        print(resources);
-        StartCoroutine(PassiveIncome());
     }
-    
+
     private void generateMoney(object sender, BuildingArgs e)
     {
         RaycastHit hit = e.hitData;
 
+        CheckForClick(hit);
+        
+        if (tickSpeed < _timePassed) return;
+
+        _timePassed = 0;
+        resources.AddMoney(passiveIncome);
+    }
+
+    void CheckForClick(RaycastHit hit)
+    {
         if (hit.transform.GetComponent<Factory>() == null) return;
         var factory = hit.transform.GetComponent<Factory>();
 
         resources.AddMoney(factory.moneyOnClick);
-    }
 
-    IEnumerator PassiveIncome()
-    {
-        resources.money += passiveIncome;
-        resources.globalPopulation -= 2;
-        yield return new WaitForSeconds(1f);
+        _timePassed = Time.deltaTime;
+
     }
 
 }
