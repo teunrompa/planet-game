@@ -11,7 +11,7 @@ public class House : Building
 
     private void Start()
     {
-        BuildingClickEvent += OnHouseClick;
+       _playerController.BuildingClickEvent += OnHouseClick;
     }
 
     private void Update()
@@ -25,7 +25,7 @@ public class House : Building
     }
 
 
-    private void OnHouseClick(object sender, BuildingArgs e)
+    private void OnHouseClick(object sender, PlayerController.BuildingArgs e)
     {
         RaycastHit hit = e.hitData;
         

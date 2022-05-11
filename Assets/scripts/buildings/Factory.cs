@@ -14,10 +14,10 @@ public class Factory : Building
 
     private void Start()
     {
-        BuildingClickEvent += generateMoney;
+        _playerController.BuildingClickEvent += generateMoney;
     }
 
-    private void generateMoney(object sender, BuildingArgs e)
+    private void generateMoney(object sender, PlayerController.BuildingArgs e)
     {
         RaycastHit hit = e.hitData;
 

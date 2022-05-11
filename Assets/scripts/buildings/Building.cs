@@ -1,48 +1,30 @@
 using System;
 using UnityEngine;
 
-public class Building : MonoBehaviour
+public abstract class Building : MonoBehaviour
 {
-     [Header("Building Data")] 
-     [SerializeField] private float cost = 200;
+     [Header("Building Data")] [SerializeField]
+     private float cost = 200;
+
      [SerializeField] public float inhabitants = 20;
+
+     protected PlayerController _playerController;
 
      public GameObject resourceManager;
      public Resources resources;
 
      private void Awake()
      {
+          _playerController = FindObjectOfType<PlayerController>();
           resourceManager = GameObject.Find("ResourceManager");
           resources = resourceManager.GetComponent<Resources>();
      }
 
-     private void Update()
+     protected virtual void Build()
      {
-          if (Input.GetMouseButtonDown(0))
-          {
-               OnClick();
-          }
-     }
-
-     //Building Click event
-     public event EventHandler<BuildingArgs> BuildingClickEvent;
-
-     //Arguments for onClick
-     public class BuildingArgs : EventArgs
-     {
-          public RaycastHit hitData;
-     }
-     
-     public void OnClick()
-     {
-          RaycastHit hit;
-          Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
           
-          //check if the ray has hit something
-          if (!Physics.Raycast(ray, out hit)) return;
-          print("click");
-          BuildingClickEvent?.Invoke(this, new BuildingArgs { hitData = hit} );
      }
+
 }
 
 

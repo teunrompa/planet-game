@@ -8,10 +8,13 @@ public class BuildingSpot : Building
     [SerializeField] GameObject[] buildingTypes;
 
     [SerializeField] private int buildingSelector = 0;
+
     
     private void Start()
     {
-        BuildingClickEvent += Build;
+        _playerController.BuildingClickEvent += Build;
+        
+        print("Buidling spot start is being called");
     }
 
     private void Update()
@@ -26,13 +29,14 @@ public class BuildingSpot : Building
         }
     }
 
-    private void Build(object sender, BuildingArgs e)
+    private void Build(object sender, PlayerController.BuildingArgs e)
     {
         var raycastHit = e.hitData;
         
+        if(raycastHit.transform.GetComponent<BuildingSpot>() == null) return;
+
         print(raycastHit);
         
-        Instantiate(buildingTypes[buildingSelector], raycastHit.transform.position, raycastHit.transform.rotation);
         print("Building Placed");
     }
 }

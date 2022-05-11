@@ -162,6 +162,7 @@ MonoBehaviour:
   buildingTypes:
   - {fileID: 2135987619}
   - {fileID: 268257240}
+  buildingSelector: 0
 --- !u!65 &115402943
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -251,7 +252,8 @@ GameObject:
   - component: {fileID: 268257244}
   - component: {fileID: 268257243}
   - component: {fileID: 268257242}
-  - component: {fileID: 268257241}
+  - component: {fileID: 268257246}
+  - component: {fileID: 268257245}
   m_Layer: 0
   m_Name: House
   m_TagString: Untagged
@@ -259,20 +261,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!136 &268257241
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 268257240}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &268257242
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -338,6 +326,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+--- !u!114 &268257245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268257240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daa891221e13c404586500641a00d41a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 200
+  inhabitants: 20
+  resourceManager: {fileID: 0}
+  resources: {fileID: 0}
+  maxInhabitants: 200
+  tickSpeed: 0.3
+--- !u!65 &268257246
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268257240}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
+  m_Center: {x: 0.000000059604645, y: 1.3552527e-20, z: -0.00000008940697}
 --- !u!1 &289318169
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,6 +650,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   money: 200
   globalPopulation: 20
+  maxPopulation: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
