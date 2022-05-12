@@ -20,19 +20,10 @@ public class BuildingSpot : Building
     private void Update()
     {
         //Factory
-<<<<<<< Updated upstream
         if (Input.GetKey(KeyCode.A)) buildingSelector = 0;
         
         //House
         if (Input.GetKey(KeyCode.S)) buildingSelector = 1;
-        
-=======
-        if (Input.GetKey(KeyCode.A)) 
-            buildingSelector = 0;
-        //House
-        if (Input.GetKey(KeyCode.S)) 
-            buildingSelector = 1;
->>>>>>> Stashed changes
     }
 
     private void Build(object sender, PlayerController.BuildingArgs e)
