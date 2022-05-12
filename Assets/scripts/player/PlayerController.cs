@@ -20,9 +20,8 @@ public class PlayerController : MonoBehaviour
     {
         public RaycastHit hitData;
     }
-     
-    //todo: move to diffrent class
-    public void OnClick()
+
+    private void OnClick()
     {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

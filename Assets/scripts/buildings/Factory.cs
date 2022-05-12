@@ -24,7 +24,7 @@ public class Factory : Building
         CheckForClick(hit);
         
         if (tickSpeed < _timePassed) return;
-
+        
         _timePassed = 0;
         resources.AddMoney(passiveIncome);
     }

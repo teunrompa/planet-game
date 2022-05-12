@@ -25,11 +25,21 @@ public class Resources : MonoBehaviour
     public void AddMoney(float amount)
    {
       money += amount;
+      globalPopulation--;
    }
 
-   public void AddPopulation(int amount)
-   {
+    public void SubTractMoney(float amount)
+    {
+       money -= amount;
+    }
+
+    public bool CanBuy(float cost)
+    {
+       return cost < money;
+    }
+
+    public void AddPopulation(int amount) {
       if(globalPopulation < maxPopulation)
          globalPopulation += amount;
-   }
+    }
 }

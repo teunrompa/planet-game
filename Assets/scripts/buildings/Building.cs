@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class Building : MonoBehaviour
 {
      [Header("Building Data")] [SerializeField]
-     private float cost = 200;
+     public float cost = 200;
 
      [SerializeField] public float inhabitants = 20;
 
