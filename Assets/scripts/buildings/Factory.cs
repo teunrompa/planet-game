@@ -27,6 +27,8 @@ public class Factory : Building
         
         _timePassed = 0;
         resources.AddMoney(passiveIncome);
+        
+        
     }
 
     void CheckForClick(RaycastHit hit)
@@ -40,4 +42,7 @@ public class Factory : Building
 
     }
 
+    protected override void Build(){
+        throw new NotImplementedException();
+    }
 }

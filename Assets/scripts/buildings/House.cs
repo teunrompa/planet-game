@@ -34,4 +34,7 @@ public class House : Building
         resources.AddPopulation(2);
     }
 
+    protected override void Build(){
+        throw new NotImplementedException();
+    }
 }

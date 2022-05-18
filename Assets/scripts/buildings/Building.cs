@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public abstract class Building : MonoBehaviour
@@ -20,11 +19,7 @@ public abstract class Building : MonoBehaviour
           resources = resourceManager.GetComponent<Resources>();
      }
 
-     protected virtual void Build()
-     {
-          
-     }
-
+     protected abstract void Build();
 }
 
 

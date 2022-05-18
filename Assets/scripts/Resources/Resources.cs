@@ -22,19 +22,19 @@ public class Resources : MonoBehaviour
        }
     }
 
-    public void AddMoney(float amount)
-   {
-      money += amount;
-      globalPopulation--;
-   }
+    private void AddMaxPopulation(int amount) {
+       maxPopulation += amount;
+    } 
 
-    public void SubTractMoney(float amount)
-    {
-       money -= amount;
+    public void AddMoney(float amount) {
+         money += amount;
+         globalPopulation--;
     }
 
-    public bool CanBuy(float cost)
-    {
+    public void SubTractMoney(float amount){
+       money -= amount;
+    }
+    public bool CanBuy(float cost){
        return cost < money;
     }
 

@@ -1,44 +1,52 @@
-
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class BuildingSpot : Building
 {
-    [SerializeField] GameObject[] buildingTypes;
+    //We use the player controller to determine the selected building
+    private PlayerController _controller;
+    private GameObject[] _buildingTypes;
+    private RaycastHit buildingThatGotHit;
+    private int _buildingSelector;
 
-    [SerializeField] private int buildingSelector;
-
-    private void Start()
-    {
-        _playerController.BuildingClickEvent += Build;
+    private void Start() {
+        _playerController.BuildingClickEvent += BuildEvent;
+        _controller = FindObjectOfType<PlayerController>();
         
-        print("Buidling spot start is being called");
+        if (_controller == null){
+            Debug.LogError("Player controller not found");
+            return;
+        }
+        
+        _buildingSelector = _controller.buildingSelector;
+        _buildingTypes = _controller.buildingTypes;
     }
 
-    private void Update()
-    {
-        //Factory
-        if (Input.GetKey(KeyCode.A)) buildingSelector = 0;
-        
-        //House
-        if (Input.GetKey(KeyCode.S)) buildingSelector = 1;
+    void BuildEvent(object sender, PlayerController.BuildingArgs e){
+        Build(e.hitData);
     }
 
-    private void Build(object sender, PlayerController.BuildingArgs e)
-    {
+    protected override void Build(RaycastHit hit){
         var raycastHit = e.hitData;
+        
         if(raycastHit.transform.GetComponent<BuildingSpot>() == null) return;
 
-        Building buildingToPlace = buildingTypes[buildingSelector].GetComponent<Building>();
+        if(!resources.CanBuy(SelectBuilding().cost)) return;
         
-        //Check if you have enough money to buy the building
-        if(!resources.CanBuy(buildingToPlace.cost)) return;
+        Building selectedBuilding = SelectBuilding();
         
-        resources.SubTractMoney(buildingToPlace.cost);
-        
+        resources.SubTractMoney(selectedBuilding.cost);
         //Place the selected building
-        Instantiate(buildingTypes[buildingSelector], raycastHit.transform.position, raycastHit.transform.rotation);
+        
+        Instantiate(
+            _buildingTypes[_buildingSelector],
+            raycastHit. transform.position,
+            raycastHit.transform.rotation
+        );
+    }
+
+    private Building SelectBuilding(){
+        Building buildingToPlace = _buildingTypes[_buildingSelector].GetComponent<Building>();
+        return buildingToPlace;
     }
 }
