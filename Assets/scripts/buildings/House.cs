@@ -9,32 +9,31 @@ public class House : Building
     [SerializeField] private float tickSpeed = 0.3f;
     private float _timePassed;
 
-    private void Start()
-    {
-       _playerController.BuildingClickEvent += OnHouseClick;
+    private void Start(){
+        EventManager.current.OnClickEvent += OnHouseClick;
+        EventManager.current.OnBuildEvent += OnBuild;
     }
 
-    private void Update()
-    {
+    private void Update(){
         _timePassed += Time.deltaTime;
-        
+
         if (!(_timePassed > tickSpeed) || !(inhabitants < maxInhabitants)) return;
         _timePassed = 0;
-        
+
         resources.AddPopulation(2);
     }
 
+    private void OnHouseClick(int id, RaycastHit hit){
+        if (id != this.id) return;
 
-    private void OnHouseClick(object sender, PlayerController.BuildingArgs e)
-    {
-        RaycastHit hit = e.hitData;
-        
-        if(hit.transform.GetComponent<House>() == null) return;
-        
         resources.AddPopulation(2);
     }
 
-    protected override void Build(){
-        throw new NotImplementedException();
+    private void OnBuild(int id, RaycastHit hit){
+        if (id != this.id) return;
+        
+        resources.AddMaxPopulation(30);
+        resources.SubTractMoney(300);
     }
+
 }

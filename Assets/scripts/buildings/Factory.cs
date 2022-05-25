@@ -11,38 +11,34 @@ public class Factory : Building
     [SerializeField] private float tickSpeed = 1f;
     private float _timePassed;
 
-
-    private void Start()
-    {
-        _playerController.BuildingClickEvent += generateMoney;
+    private void Start(){
+        EventManager.current.OnClickEvent += OnClick;
     }
 
-    private void generateMoney(object sender, PlayerController.BuildingArgs e)
-    {
-        RaycastHit hit = e.hitData;
-
-        CheckForClick(hit);
-        
+    private void generateMoney(){
         if (tickSpeed < _timePassed) return;
-        
+
         _timePassed = 0;
+
         resources.AddMoney(passiveIncome);
-        
-        
     }
 
-    void CheckForClick(RaycastHit hit)
-    {
-        if (hit.transform.GetComponent<Factory>() == null) return;
+    private void OnClick(int id, RaycastHit hit){
+        if (id != this.id) return;
+
         var factory = hit.transform.GetComponent<Factory>();
 
         resources.AddMoney(factory.moneyOnClick);
 
         _timePassed = Time.deltaTime;
-
     }
 
-    protected override void Build(){
-        throw new NotImplementedException();
+    private void OnBuild(int id, RaycastHit hit){
+        if (id != this.id) return;
+        
+        resources.SubTractMoney(3000);
+        resources.maxPopulation -= 20;
+        resources.globalPopulation -= 30;
     }
+
 }

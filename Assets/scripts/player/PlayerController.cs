@@ -49,15 +49,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //Building Click event
-    public event EventHandler<BuildingArgs> BuildingClickEvent;
-
-    //Arguments for onClick
-    public class BuildingArgs : EventArgs
-    {
-        public RaycastHit hitData;
-    }
-
     private void OnClick()
     {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -65,23 +56,38 @@ public class PlayerController : MonoBehaviour
         //check if the ray has hit something
         if (!Physics.Raycast(ray, out var hit)) return;
         
-        //Pass the rayCastHit to the hitData
-        BuildingClickEvent?.Invoke(this, new BuildingArgs { hitData = hit} );
+        //check if hit was a building
+        if(hit.transform.gameObject.GetComponent<Building>() == null) return;
+
+        //Gets the buildingId
+        int buildingId = GetBuildingId(hit);
+        
+        //Passes the building id and hitData also triggers the onClick event
+        EventManager.current.OnClick(buildingId, hit);
     }
     
+    //Checks if the building selector is between 0 or the max and sets it
     public void SetBuildingSelector(int id) {
         if(id < 0 || id > buildingTypes.Length) return;
+        
         buildingSelector = id;
     }
-
+    
+    //Checks if the building selector is the max and increments it
     public void IncrementSelector() {
-        if(buildingSelector < 0 || buildingSelector > buildingTypes.Length) return;        
+        if(buildingSelector > buildingTypes.Length) return;
         
         buildingSelector++;
     }
-
+    //Checks if the building selector is greater than 0 and decrements it
     public void DecrementSelector() {
-        if(buildingSelector < 0 || buildingSelector > buildingTypes.Length) return;
+        if(buildingSelector < 0) return;
+        
         buildingSelector--;
+    }
+
+    //Gets the building id from an RaycastHit
+    private static int GetBuildingId(RaycastHit hit){
+        return  hit.transform.gameObject.GetComponent<Building>().id;
     }
 }

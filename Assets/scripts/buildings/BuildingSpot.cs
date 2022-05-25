@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public class BuildingSpot : Building
@@ -6,11 +7,10 @@ public class BuildingSpot : Building
     //We use the player controller to determine the selected building
     private PlayerController _controller;
     private GameObject[] _buildingTypes;
-    private RaycastHit buildingThatGotHit;
     private int _buildingSelector;
-
+    
     private void Start() {
-        _playerController.BuildingClickEvent += BuildEvent;
+        EventManager.current.OnClickEvent += Build;
         _controller = FindObjectOfType<PlayerController>();
         
         if (_controller == null){
@@ -18,33 +18,31 @@ public class BuildingSpot : Building
             return;
         }
         
-        _buildingSelector = _controller.buildingSelector;
         _buildingTypes = _controller.buildingTypes;
     }
 
-    void BuildEvent(object sender, PlayerController.BuildingArgs e){
-        Build(e.hitData);
+    private void Update()
+    {
+        //Updates the selector
+        _buildingSelector = _controller.buildingSelector;
     }
 
-    protected override void Build(RaycastHit hit){
-        var raycastHit = e.hitData;
-        
-        if(raycastHit.transform.GetComponent<BuildingSpot>() == null) return;
+    private void Build(int id, RaycastHit hit){
+        if (id != this.id) return;
 
         if(!resources.CanBuy(SelectBuilding().cost)) return;
-        
-        Building selectedBuilding = SelectBuilding();
-        
-        resources.SubTractMoney(selectedBuilding.cost);
-        //Place the selected building
-        
+
         Instantiate(
             _buildingTypes[_buildingSelector],
-            raycastHit. transform.position,
-            raycastHit.transform.rotation
+            hit. transform.position,
+            hit.transform.rotation
         );
+        
+        gameObject.SetActive(false);
+        
+        EventManager.current.OnBuild(id, hit);
     }
-
+    
     private Building SelectBuilding(){
         Building buildingToPlace = _buildingTypes[_buildingSelector].GetComponent<Building>();
         return buildingToPlace;

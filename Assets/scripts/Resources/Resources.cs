@@ -6,40 +6,40 @@ using UnityEngine;
 
 public class Resources : MonoBehaviour
 {
-    public float money = 200;
-    public int globalPopulation = 20;
-    public int maxPopulation;
+   //public static Resources current;
+   public float money = 200;
+   public int globalPopulation = 20;
+   public int maxPopulation;
 
-    private House[] houses;
+   private House[] houses;
 
-    private void Start()
-    {
-       houses = FindObjectsOfType<House>();
+   private void Start()
+   {
+    houses = FindObjectsOfType<House>();
 
-       foreach (var house in houses)
-       {
-          maxPopulation += house.maxInhabitants;
-       }
+    foreach (var house in houses){
+       maxPopulation += house.maxInhabitants;
     }
+   }
 
-    private void AddMaxPopulation(int amount) {
-       maxPopulation += amount;
-    } 
+   public void AddMaxPopulation(int amount) {
+    maxPopulation += amount;
+   } 
 
-    public void AddMoney(float amount) {
-         money += amount;
-         globalPopulation--;
-    }
+   public void AddMoney(float amount) {
+      money += amount;
+      globalPopulation--;
+   }
 
-    public void SubTractMoney(float amount){
-       money -= amount;
-    }
-    public bool CanBuy(float cost){
-       return cost < money;
-    }
+   public void SubTractMoney(float amount){
+    money -= amount;
+   }
+   public bool CanBuy(float cost){
+    return cost < money;
+   }
 
-    public void AddPopulation(int amount) {
-      if(globalPopulation < maxPopulation)
+   public void AddPopulation(int amount) {
+    if (globalPopulation < maxPopulation)
          globalPopulation += amount;
-    }
+   }
 }
