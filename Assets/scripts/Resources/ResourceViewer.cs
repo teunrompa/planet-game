@@ -21,7 +21,7 @@ public class ResourceViewer : MonoBehaviour
     private void Update()
     {
         //Update the resources ui
-        moneyText.text = "Money: " + _resources.money;
-        populationText.text = "Population: " + _resources.globalPopulation + " / " + _resources.maxPopulation;
+        moneyText.text = "Money: " + Resources.current.money;
+        populationText.text = "Population: " + Resources.current.globalPopulation + " / " + Resources.current.maxPopulation;
     }
 }

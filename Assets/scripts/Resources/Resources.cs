@@ -13,9 +13,13 @@ public class Resources : MonoBehaviour
 
     private House[] houses;
 
-    private void Start(){
-        houses = FindObjectsOfType<House>();
+    public static Resources current;
 
+    private void Start(){
+        current = this;
+        
+        //Calculate the max inhabitants
+        houses = FindObjectsOfType<House>();
         foreach (var house in houses){
             maxPopulation += house.maxInhabitants;
         }

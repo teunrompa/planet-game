@@ -9,17 +9,12 @@ public class Factory : Building
     [SerializeField] public float moneyOnClick = 200;
     [SerializeField] private float passiveIncome = 20;
     [SerializeField] private float tickSpeed = 1f;
-    private float _timePassed;
-
     private void Start(){
         EventManager.current.OnClickEvent += OnClick;
+        EventManager.current.OnBuildEvent += OnBuild;
     }
 
     private void generateMoney(){
-        if (tickSpeed < _timePassed) return;
-
-        _timePassed = 0;
-
         resources.AddMoney(passiveIncome);
     }
 
@@ -28,17 +23,13 @@ public class Factory : Building
 
         var factory = hit.transform.GetComponent<Factory>();
 
-        resources.AddMoney(factory.moneyOnClick);
-
-        _timePassed = Time.deltaTime;
+        Resources.current.AddMoney(factory.moneyOnClick);
     }
 
-    private void OnBuild(int id, RaycastHit hit){
-        if (id != this.id) return;
-        
-        resources.SubTractMoney(3000);
-        resources.maxPopulation -= 20;
-        resources.globalPopulation -= 30;
+    private void OnBuild(){
+        Resources.current.SubTractMoney(cost);
+        Resources.current.maxPopulation -= 20;
+        Resources.current.globalPopulation -= 30;
     }
 
 }

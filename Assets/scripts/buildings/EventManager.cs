@@ -18,9 +18,9 @@ public class EventManager : MonoBehaviour
       OnClickEvent?.Invoke(id, hit);
   }
 
-  public event Action<int, RaycastHit> OnBuildEvent;
+  public event Action OnBuildEvent;
   
-  public void OnBuild(int id, RaycastHit hit){
-      OnBuildEvent?.Invoke(id, hit);
+  public void OnBuild(){
+      OnBuildEvent?.Invoke();
   }
 }

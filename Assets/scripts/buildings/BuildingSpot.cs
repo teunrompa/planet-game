@@ -40,7 +40,7 @@ public class BuildingSpot : Building
         
         gameObject.SetActive(false);
         
-        EventManager.current.OnBuild(id, hit);
+        EventManager.current.OnBuild();
     }
     
     private Building SelectBuilding(){
