@@ -1,21 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class Factory : Building
 {
     [SerializeField] public float moneyOnClick = 200;
     [SerializeField] private float passiveIncome = 20;
-    [SerializeField] private float tickSpeed = 1f;
+    [SerializeField] private int populationDeathOnClick = 40;
+    [SerializeField] private int populationRemovedOnClick = 10;
+    
     private void Start(){
         EventManager.current.OnClickEvent += OnClick;
         EventManager.current.OnBuildEvent += OnBuild;
-    }
-
-    private void generateMoney(){
-        resources.AddMoney(passiveIncome);
+        EventManager.current.OnTickEvent += OnTick;
     }
 
     private void OnClick(int id, RaycastHit hit){
@@ -24,12 +19,19 @@ public class Factory : Building
         var factory = hit.transform.GetComponent<Factory>();
 
         Resources.current.AddMoney(factory.moneyOnClick);
+        Resources.current.SubtractPopulation(populationDeathOnClick);
     }
 
-    private void OnBuild(){
+    private void OnBuild(int id){
+        if(id != this.id) return;
+        
         Resources.current.SubTractMoney(cost);
-        Resources.current.maxPopulation -= 20;
-        Resources.current.globalPopulation -= 30;
+        Resources.current.SubtractMaxPopulation(populationRemovedOnClick);
+        Resources.current.SubtractPopulation(populationDeathOnClick);
+    }
+
+    private void OnTick(){
+        Resources.current.AddMoney(passiveIncome);
     }
 
 }

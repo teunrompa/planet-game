@@ -30,7 +30,7 @@ public class BuildingSpot : Building
     private void Build(int id, RaycastHit hit){
         if (id != this.id) return;
 
-        if(!resources.CanBuy(SelectBuilding().cost)) return;
+        if(!Resources.current.CanBuy(SelectBuilding().cost)) return;
 
         Instantiate(
             _buildingTypes[_buildingSelector],
@@ -39,8 +39,6 @@ public class BuildingSpot : Building
         );
         
         gameObject.SetActive(false);
-        
-        EventManager.current.OnBuild();
     }
     
     private Building SelectBuilding(){

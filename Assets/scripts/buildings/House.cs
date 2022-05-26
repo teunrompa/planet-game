@@ -7,26 +7,33 @@ public class House : Building
 {
     [SerializeField] public int maxInhabitants = 200;
     [SerializeField] private int populationToAdd = 20;
-    private float _timePassed;
+    [SerializeField] private int populationToAddOnBuild = 30;
 
     private void Start(){
         EventManager.current.OnClickEvent += OnHouseClick;
         EventManager.current.OnBuildEvent += OnBuild;
+        EventManager.current.OnTickEvent += OnTick;
     }
 
     private void Update(){
-        resources.AddPopulation(2);
+        Resources.current.AddPopulation(2);
     }
 
     private void OnHouseClick(int id, RaycastHit hit){
         if (id != this.id) return;
 
-        resources.AddPopulation(2);
+        Resources.current.AddPopulation(2);
     }
 
-    private void OnBuild(){
-        resources.AddMaxPopulation(populationToAdd);
-        resources.SubTractMoney(cost);
+    private void OnBuild(int id){
+        if(id != this.id) return;
+        
+        Resources.current.AddMaxPopulation(populationToAddOnBuild);
+        Resources.current.SubTractMoney(cost);
     }
 
+    private void OnTick(){
+        Resources.current.AddPopulation(populationToAdd);   
+    }
+    
 }

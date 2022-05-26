@@ -3,24 +3,28 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
-  //TODO: Move event code here
-  public static EventManager current;
+    public static EventManager current;
 
-  private void Awake()
-  {
-     current = this;
-  } 
-  
-  public event Action<int, RaycastHit> OnClickEvent;
-  
-  public void OnClick(int id, RaycastHit hit)
-  {
-      OnClickEvent?.Invoke(id, hit);
-  }
+    private void Awake(){
+        current = this;
+    }
 
-  public event Action OnBuildEvent;
-  
-  public void OnBuild(){
-      OnBuildEvent?.Invoke();
-  }
+    public event Action<int, RaycastHit> OnClickEvent;
+
+    public void OnClick(int id, RaycastHit hit){
+        OnClickEvent?.Invoke(id, hit);
+    }
+
+    //int = buildingID
+    public event Action<int> OnBuildEvent;
+
+    public void OnBuild(int id){
+        OnBuildEvent?.Invoke(id);
+    }
+
+    public event Action OnTickEvent;
+
+    public void OnTick(){
+        OnTickEvent?.Invoke();
+    }
 }

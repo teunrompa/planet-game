@@ -1,20 +1,19 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Resources : MonoBehaviour
 {
-    //public static Resources current;
-    public float money = 200;
-    public int globalPopulation = 20;
-    public int maxPopulation;
-
-    private House[] houses;
-
+    //static resources so you can access resources globally and it will all reference the same variable
     public static Resources current;
+    
+    public float money = 200;
+    private int globalPopulation = 20;
+    private int maxPopulation;
 
+    [SerializeField] private float tickSpeed = 0.5f;
+    private float timePassed;
+    
+    private House[] houses;
+    
     private void Start(){
         current = this;
         
@@ -25,8 +24,46 @@ public class Resources : MonoBehaviour
         }
     }
 
+    private void Update(){
+        timePassed += Time.deltaTime;
+
+        if (!(tickSpeed < timePassed)) return;
+        timePassed = 0;
+        
+        EventManager.current.OnTick();
+    }
+    
+    public int getPopulation(){
+        return globalPopulation;
+    }
+
+    public int getMaxPopulation(){
+        return maxPopulation;
+    }
+
     public void AddMaxPopulation(int amount){
         maxPopulation += amount;
+    }
+
+    public void AddPopulation(int amount){
+        if (globalPopulation + amount < maxPopulation ){
+            globalPopulation += amount;
+            return;
+        }
+        
+        globalPopulation = maxPopulation;
+    }
+    
+    public void SubtractPopulation(int amount){
+        if (globalPopulation < 0) return;
+
+        globalPopulation -= amount;
+    }
+
+    public void SubtractMaxPopulation(int amount){
+        if(maxPopulation - amount < 0) return;
+
+        maxPopulation -= amount;
     }
 
     public void AddMoney(float amount){
@@ -40,14 +77,5 @@ public class Resources : MonoBehaviour
 
     public bool CanBuy(float cost){
         return cost < money;
-    }
-
-    public void AddPopulation(int amount){
-        if (globalPopulation + amount < maxPopulation ){
-            globalPopulation += amount;
-            return;
-        }
-        
-        globalPopulation = maxPopulation;
     }
 }
