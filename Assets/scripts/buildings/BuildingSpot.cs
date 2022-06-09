@@ -12,10 +12,6 @@ public class BuildingSpot : Building
     
     public bool isBuildOn = false;
     
-    private void Awake(){
-        id = GetInstanceID();
-    }
-
     public override void Start() {
         base.Start();
         

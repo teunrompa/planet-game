@@ -8,8 +8,12 @@ public abstract class Building : MonoBehaviour
      [Header("Building Data")] 
      [SerializeField] public float cost = 200;
 
+     private void Awake(){
+          id = GetInstanceID();
+     }
+
+     //Event has to be called form start and not awake because otherwise execution order of subscribers is not guaranteed
      public virtual void Start(){
-          print("building start called");
           EventManager.current.OnBuild(id);
      }
 }

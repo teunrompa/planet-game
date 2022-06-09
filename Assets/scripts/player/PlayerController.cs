@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
         
         //check if the ray has hit something
         if (!Physics.Raycast(ray, out var hit)) return;
-        
+
         //check if hit was a building
         if(hit.transform.gameObject.GetComponent<Building>() == null) return;
 

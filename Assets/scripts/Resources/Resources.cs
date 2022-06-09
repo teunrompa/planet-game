@@ -6,11 +6,11 @@ public class Resources : MonoBehaviour
     //static resources so you can access resources globally and it will all reference the same variable
     public static Resources current;
     
-    public float money = 200;
-    private int globalPopulation = 20;
-    private int maxPopulation;
+    [SerializeField] public float money = 200;
+    [SerializeField] private int globalPopulation = 20;
+    [SerializeField] private int maxPopulation;
 
-    [SerializeField] private float tickSpeed = 0.5f;
+    [SerializeField] private float tickSpeed = 120f;
     private float timePassed;
     
     private House[] houses;
@@ -20,12 +20,10 @@ public class Resources : MonoBehaviour
     }
 
     private void Start(){
-        current = this;
-        
         //Calculate the max inhabitants
         houses = FindObjectsOfType<House>();
         foreach (var house in houses){
-            maxPopulation += house.maxInhabitants;
+            maxPopulation += house.data.maxInhabitants;
         }
     }
 
@@ -36,6 +34,7 @@ public class Resources : MonoBehaviour
         timePassed = 0;
         
         EventManager.current.OnTick();
+        
     }
     
     public int getPopulation(){

@@ -110,9 +110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa891221e13c404586500641a00d41a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 200
-  inhabitants: 20
-  resourceManager: {fileID: 0}
-  resources: {fileID: 0}
-  maxInhabitants: 200
-  tickSpeed: 0.3
+  id: 0
+  cost: 100
+  data: {fileID: 11400000, guid: c3e1c87a63ae6be4f8c2eb05d462d793, type: 2}
