@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Resources : MonoBehaviour
@@ -13,7 +14,11 @@ public class Resources : MonoBehaviour
     private float timePassed;
     
     private House[] houses;
-    
+
+    private void Awake(){
+        current = this;
+    }
+
     private void Start(){
         current = this;
         

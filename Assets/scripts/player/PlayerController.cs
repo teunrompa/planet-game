@@ -3,16 +3,17 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController current;
+    
     [SerializeField] private bool isInBuildMode;
-    /*
-     Building selector is in here because if
-     we modify it we can garauntee it will
-     at least always be consistent 
-     */
     [SerializeField] public int buildingSelector;
     [SerializeField] public GameObject[] buildingTypes;
     
     private BuildingSpot[] _buildSpots;
+
+    private void Awake(){
+        current = this;
+    }
 
     private void Start()
     {
@@ -43,8 +44,9 @@ public class PlayerController : MonoBehaviour
         
         //Make building spots visible
         _buildSpots = FindObjectsOfType<BuildingSpot>(true);
-        foreach (var buildingSpot in _buildSpots)
-        {
+        foreach (var buildingSpot in _buildSpots){
+            if (buildingSpot.isBuildOn) return;
+
             buildingSpot.gameObject.SetActive(isInBuildMode);
         }
     }

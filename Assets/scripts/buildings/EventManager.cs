@@ -15,7 +15,7 @@ public class EventManager : MonoBehaviour
         OnClickEvent?.Invoke(id, hit);
     }
 
-    //int = buildingID
+    //int is buildingID
     public event Action<int> OnBuildEvent;
 
     public void OnBuild(int id){

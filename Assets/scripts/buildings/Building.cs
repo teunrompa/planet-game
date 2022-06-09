@@ -5,17 +5,11 @@ public abstract class Building : MonoBehaviour
 {
      public int id;
 
-     [Header("Building Data")] [SerializeField]
-     public float cost = 200;
-     [SerializeField] public float inhabitants = 20;
-     
-     private void Awake()
-     {
-          id = GetInstanceID();
-     }
+     [Header("Building Data")] 
+     [SerializeField] public float cost = 200;
 
-     private void Start(){
-          //Id is only available from here
+     public virtual void Start(){
+          print("building start called");
           EventManager.current.OnBuild(id);
      }
 }

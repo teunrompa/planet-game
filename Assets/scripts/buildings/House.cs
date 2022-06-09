@@ -9,7 +9,9 @@ public class House : Building
     [SerializeField] private int populationToAdd = 20;
     [SerializeField] private int populationToAddOnBuild = 30;
 
-    private void Start(){
+    public override void Start(){
+        base.Start();
+        
         EventManager.current.OnClickEvent += OnHouseClick;
         EventManager.current.OnBuildEvent += OnBuild;
         EventManager.current.OnTickEvent += OnTick;
@@ -25,11 +27,17 @@ public class House : Building
         Resources.current.AddPopulation(2);
     }
 
+    /*todo: id = different form the building spot id so the function wont be executed
+     Function seems to not get called 
+    */
     private void OnBuild(int id){
         if(id != this.id) return;
+        print("passed id");
         
         Resources.current.AddMaxPopulation(populationToAddOnBuild);
         Resources.current.SubTractMoney(cost);
+
+        EventManager.current.OnBuildEvent -= OnBuild;
     }
 
     private void OnTick(){

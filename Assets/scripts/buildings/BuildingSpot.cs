@@ -6,12 +6,22 @@ public class BuildingSpot : Building
 {
     //We use the player controller to determine the selected building
     private PlayerController _controller;
+    
     private GameObject[] _buildingTypes;
     private int _buildingSelector;
     
-    private void Start() {
+    public bool isBuildOn = false;
+    
+    private void Awake(){
+        id = GetInstanceID();
+    }
+
+    public override void Start() {
+        base.Start();
+        
         EventManager.current.OnClickEvent += Build;
-        _controller = FindObjectOfType<PlayerController>();
+        _controller = PlayerController.current;
+        
         
         if (_controller == null){
             Debug.LogError("Player controller not found");
@@ -37,8 +47,12 @@ public class BuildingSpot : Building
             hit. transform.position,
             hit.transform.rotation
         );
-        
-        gameObject.SetActive(false);
+
+        Resources.current.SubTractMoney(SelectBuilding().cost);
+
+        isBuildOn = true;
+        //if there is a building placed then disable the game object
+        gameObject.SetActive(!isBuildOn);
     }
     
     private Building SelectBuilding(){

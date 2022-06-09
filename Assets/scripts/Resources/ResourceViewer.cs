@@ -8,11 +8,7 @@ public class ResourceViewer : MonoBehaviour
 
     private void Update()
     {
-        //Update the resources ui
-        if (Resources.current.getMaxPopulation() <= Resources.current.getPopulation()){
-            populationText.text = "Population: " + Resources.current.getPopulation() + " / " + Resources.current.getMaxPopulation();
-        }
-        
+        populationText.text = "Population: " + Resources.current.getPopulation() + " / " + Resources.current.getMaxPopulation();
         moneyText.text = "Money: " + Resources.current.money;
     }
 }

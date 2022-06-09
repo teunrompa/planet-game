@@ -5,9 +5,12 @@ public class Factory : Building
     [SerializeField] public float moneyOnClick = 200;
     [SerializeField] private float passiveIncome = 20;
     [SerializeField] private int populationDeathOnClick = 40;
-    [SerializeField] private int populationRemovedOnClick = 10;
-    
-    private void Start(){
+    [SerializeField] private int populationRemovedOnBuild = 10;
+    private const int populationDecreaseOnTick = 20;
+
+    public override void Start(){
+        base.Start();
+        
         EventManager.current.OnClickEvent += OnClick;
         EventManager.current.OnBuildEvent += OnBuild;
         EventManager.current.OnTickEvent += OnTick;
@@ -25,13 +28,15 @@ public class Factory : Building
     private void OnBuild(int id){
         if(id != this.id) return;
         
-        Resources.current.SubTractMoney(cost);
-        Resources.current.SubtractMaxPopulation(populationRemovedOnClick);
+        Resources.current.SubtractMaxPopulation(populationRemovedOnBuild);
         Resources.current.SubtractPopulation(populationDeathOnClick);
+
+        EventManager.current.OnBuildEvent -= OnBuild;
     }
 
     private void OnTick(){
         Resources.current.AddMoney(passiveIncome);
+        Resources.current.SubtractPopulation(populationDecreaseOnTick);
     }
 
 }
