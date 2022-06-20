@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //register to scriptable object
-[CreateAssetMenu(fileName = "HouseData", menuName = "ScriptableObjects/HouseData")]
+[CreateAssetMenu(fileName = "HouseData", menuName = "ScriptableObjects/Buildings/HouseData")]
 public class HouseData : ScriptableObject
 {
      public int maxInhabitants = 200;

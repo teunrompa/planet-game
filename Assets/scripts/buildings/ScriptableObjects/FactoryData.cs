@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/FactoryData", order = 1)]
+[CreateAssetMenu(fileName = "FactoryData", menuName = "ScriptableObjects/Buildings/FactoryData", order = 1)]
 public class FactoryData : ScriptableObject
 { 
      public float moneyOnClick = 200;

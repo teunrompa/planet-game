@@ -3,8 +3,7 @@ using UnityEngine;
 public class Factory : Building
 {
     public FactoryData data;
-
-
+    
     private void Awake(){
         EventManager.current.OnClickEvent += OnClick;
         EventManager.current.OnBuildEvent += OnBuild;
@@ -22,12 +21,9 @@ public class Factory : Building
 
     private void OnBuild(int id){
         if(id != this.id) return;
-        
-        print("Building factory");
-        
-        Resources.current.SubtractMaxPopulation(data.populationRemovedOnBuild);
-        Resources.current.SubtractPopulation(data.populationDeathOnClick);
 
+        Resources.current.SubtractPopulation(data.populationRemovedOnBuild);       
+        
         EventManager.current.OnBuildEvent -= OnBuild;
     }
 

@@ -25,7 +25,6 @@ public class House : Building
         print("building house");
 
         Resources.current.AddMaxPopulation(data.populationToAddOnBuild);
-        Resources.current.SubTractMoney(cost);
 
         EventManager.current.OnBuildEvent -= OnBuild;
     }

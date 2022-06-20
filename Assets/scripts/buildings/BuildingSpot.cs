@@ -18,7 +18,6 @@ public class BuildingSpot : Building
         EventManager.current.OnClickEvent += Build;
         _controller = PlayerController.current;
         
-        
         if (_controller == null){
             Debug.LogError("Player controller not found");
             return;

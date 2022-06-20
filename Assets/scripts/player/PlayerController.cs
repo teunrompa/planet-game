@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -6,11 +7,12 @@ public class PlayerController : MonoBehaviour
     public static PlayerController current;
     
     [SerializeField] private bool isInBuildMode;
+    [SerializeField] private bool isInRemoveMode;
     [SerializeField] public int buildingSelector;
     [SerializeField] public GameObject[] buildingTypes;
     
     private BuildingSpot[] _buildSpots;
-
+    
     private void Awake(){
         current = this;
     }
@@ -38,19 +40,34 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.S)) buildingSelector = 1;
     }
 
-    public void ToggleBuildMode()
-    {
+    public void ToggleBuildMode(){
+        isInRemoveMode = false;
+        
         isInBuildMode = !isInBuildMode;
         
         //Make building spots visible
-        _buildSpots = FindObjectsOfType<BuildingSpot>(true);
-        foreach (var buildingSpot in _buildSpots){
-            if (buildingSpot.isBuildOn) return;
-
-            buildingSpot.gameObject.SetActive(isInBuildMode);
-        }
+        ToggleBuildSpots(isInBuildMode);
     }
 
+    private void ToggleBuildSpots(bool buildMode){
+        
+        //Get all buildSpots and make them active or inactive 
+        _buildSpots = FindObjectsOfType<BuildingSpot>(true);
+        
+        foreach (var buildingSpot in _buildSpots){
+            buildingSpot.gameObject.SetActive(buildMode);
+        }
+    }
+    
+    //Switches between remove mode also turns off build mode 
+    public void ToggleRemoveMode(){
+        isInBuildMode = false;
+        
+        isInRemoveMode = !isInRemoveMode;
+
+        ToggleBuildSpots(isInBuildMode);
+    }
+    
     private void OnClick()
     {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -61,11 +78,27 @@ public class PlayerController : MonoBehaviour
         //check if hit was a building
         if(hit.transform.gameObject.GetComponent<Building>() == null) return;
 
+        if (isInRemoveMode && hit.transform.gameObject.GetComponent<BuildingSpot>() == null){
+            RemoveBuilding(hit);
+        }
+        
         //Gets the buildingId
         int buildingId = GetBuildingId(hit);
         
         //Passes the building id and hitData also triggers the onClick event
         EventManager.current.OnClick(buildingId, hit);
+    }
+
+    //Removes the building and places a building spot
+    private void RemoveBuilding(RaycastHit hit){
+        Destroy(hit.transform.gameObject);
+
+        //Search for building spot in our building types and instantiate it on the position off the building
+        foreach (var buildingType in buildingTypes){  
+            if (buildingType.GetComponent<BuildingSpot>()){
+                Instantiate(buildingType, hit.transform.position, hit.rigidbody.rotation);
+            }
+        }
     }
     
     //Checks if the building selector is between 0 or the max and sets it
