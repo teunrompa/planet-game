@@ -8,6 +8,7 @@ public class Factory : Building
         EventManager.current.OnClickEvent += OnClick;
         EventManager.current.OnBuildEvent += OnBuild;
         EventManager.current.OnTickEvent += OnTick;
+        EventManager.current.OnRemoveEvent += OnRemove;
     }
 
     private void OnClick(int id, RaycastHit hit){
@@ -30,6 +31,12 @@ public class Factory : Building
     private void OnTick(){
         Resources.current.AddMoney(data.passiveIncome);
         Resources.current.SubtractPopulation(data.populationDecreaseOnTick);
+    }
+    
+    private void OnRemove(int id){
+        if(this.id != id) return;
+        EventManager.current.OnTickEvent -= OnTick;
+        EventManager.current.OnRemoveEvent -= OnRemove;
     }
 
 }

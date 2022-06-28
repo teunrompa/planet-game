@@ -27,4 +27,10 @@ public class EventManager : MonoBehaviour
     public void OnTick(){
         OnTickEvent?.Invoke();
     }
+
+    public event Action<int> OnRemoveEvent;
+    
+    public void OnRemove(int id){
+        OnRemoveEvent?.Invoke(id);
+    }
 }

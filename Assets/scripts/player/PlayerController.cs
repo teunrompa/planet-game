@@ -94,8 +94,9 @@ public class PlayerController : MonoBehaviour
     //Destroy building
     private void RemoveBuilding(RaycastHit hit){
         //prevents removing building spots
-        if (hit.transform.gameObject.GetComponent<BuildingSpot>() == null)
-            Destroy(hit.transform.gameObject); 
+        if (hit.transform.gameObject.GetComponent<BuildingSpot>() != null) return;
+        
+        Destroy(hit.transform.gameObject);
     }
     
     //Checks if the building selector is between 0 or the max and sets it

@@ -14,6 +14,11 @@ public abstract class Building : MonoBehaviour
 
           EventManager.current.OnBuild(id);
      }
+
+
+     private void OnDestroy(){
+          EventManager.current.OnRemove(id);
+     }
 }
 
 

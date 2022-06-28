@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class House : Building
@@ -8,6 +9,7 @@ public class House : Building
         EventManager.current.OnClickEvent += OnHouseClick;
         EventManager.current.OnBuildEvent += OnBuild;
         EventManager.current.OnTickEvent += OnTick;
+        EventManager.current.OnRemoveEvent += OnRemove;
     }
 
     private void OnHouseClick(int id, RaycastHit hit){
@@ -28,6 +30,12 @@ public class House : Building
 
     private void OnTick(){
         Resources.current.AddPopulation(data.populationToAdd);   
+    }
+
+    private void OnRemove(int id){
+        if(this.id != id) return;
+        EventManager.current.OnTickEvent -= OnTick;
+        EventManager.current.OnRemoveEvent -= OnRemove;
     }
     
 }
