@@ -1,13 +1,10 @@
-using System;
-using System.Collections;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class House : Building
 {
     public HouseData data;
 
-    void Awake(){
+    private void Awake(){
         EventManager.current.OnClickEvent += OnHouseClick;
         EventManager.current.OnBuildEvent += OnBuild;
         EventManager.current.OnTickEvent += OnTick;

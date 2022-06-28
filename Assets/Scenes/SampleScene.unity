@@ -1403,11 +1403,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198481168720880749, guid: 6dc03d667702fdd44a056c502af69f3f, type: 3}
       propertyPath: deadline
-      value: 1e+13
+      value: 1200
       objectReference: {fileID: 0}
     - target: {fileID: 1198481168720880749, guid: 6dc03d667702fdd44a056c502af69f3f, type: 3}
       propertyPath: moneyToReach
-      value: 600000
+      value: 4000
       objectReference: {fileID: 0}
     - target: {fileID: 1198481168720880749, guid: 6dc03d667702fdd44a056c502af69f3f, type: 3}
       propertyPath: _contractData
@@ -1472,6 +1472,14 @@ PrefabInstance:
     - target: {fileID: 7430055726900851189, guid: 6dc03d667702fdd44a056c502af69f3f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7430055726900851191, guid: 6dc03d667702fdd44a056c502af69f3f, type: 3}
+      propertyPath: maxPopulation
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7430055726900851191, guid: 6dc03d667702fdd44a056c502af69f3f, type: 3}
+      propertyPath: globalPopulation
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6dc03d667702fdd44a056c502af69f3f, type: 3}

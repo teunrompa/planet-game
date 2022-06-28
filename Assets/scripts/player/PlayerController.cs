@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -10,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isInRemoveMode;
     [SerializeField] public int buildingSelector;
     [SerializeField] public GameObject[] buildingTypes;
-    
+
     private BuildingSpot[] _buildSpots;
     
     private void Awake(){
@@ -27,7 +29,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0)) OnClick();
 
@@ -77,10 +79,9 @@ public class PlayerController : MonoBehaviour
 
         //check if hit was a building
         if(hit.transform.gameObject.GetComponent<Building>() == null) return;
-
-        if (isInRemoveMode && hit.transform.gameObject.GetComponent<BuildingSpot>() == null){
+        
+        if(isInRemoveMode)
             RemoveBuilding(hit);
-        }
         
         //Gets the buildingId
         int buildingId = GetBuildingId(hit);
@@ -89,16 +90,12 @@ public class PlayerController : MonoBehaviour
         EventManager.current.OnClick(buildingId, hit);
     }
 
-    //Removes the building and places a building spot
+    
+    //Destroy building
     private void RemoveBuilding(RaycastHit hit){
-        Destroy(hit.transform.gameObject);
-
-        //Search for building spot in our building types and instantiate it on the position off the building
-        foreach (var buildingType in buildingTypes){  
-            if (buildingType.GetComponent<BuildingSpot>()){
-                Instantiate(buildingType, hit.transform.position, hit.rigidbody.rotation);
-            }
-        }
+        //prevents removing building spots
+        if (hit.transform.gameObject.GetComponent<BuildingSpot>() == null)
+            Destroy(hit.transform.gameObject); 
     }
     
     //Checks if the building selector is between 0 or the max and sets it
