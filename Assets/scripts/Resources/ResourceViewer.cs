@@ -22,7 +22,7 @@ public class ResourceViewer : MonoBehaviour
         
         print("Money to reach " + contract.GetMoneyToReach());
         
-        moneyText.text = "Money: " + Resources.current.money + " / " + contract.GetMoneyToReach();
+        moneyText.text = "Money: " + Resources.current.money + " / " + contract.GetMoneyToReach() + " + " + Resources.current.MoneyEachTick() ;
 
         if (contract.ContractMoneyReached(Resources.current.money)){
             print("Contract completed");

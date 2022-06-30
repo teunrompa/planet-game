@@ -5,6 +5,7 @@ public class Factory : Building
     public FactoryData data;
     
     private void Awake(){
+        //Subscribe methods
         EventManager.current.OnClickEvent += OnClick;
         EventManager.current.OnBuildEvent += OnBuild;
         EventManager.current.OnTickEvent += OnTick;
@@ -23,8 +24,7 @@ public class Factory : Building
     private void OnBuild(int id){
         if(id != this.id) return;
 
-        Resources.current.SubtractPopulation(data.populationRemovedOnBuild);       
-        
+        Resources.current.SubtractPopulation(data.populationRemovedOnBuild);
         EventManager.current.OnBuildEvent -= OnBuild;
     }
 
@@ -35,6 +35,9 @@ public class Factory : Building
     
     private void OnRemove(int id){
         if(this.id != id) return;
+        
+        //Unsubscribe from methods
+        EventManager.current.OnClickEvent -= OnClick;
         EventManager.current.OnTickEvent -= OnTick;
         EventManager.current.OnRemoveEvent -= OnRemove;
     }

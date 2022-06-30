@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 public class Resources : MonoBehaviour
@@ -81,5 +82,12 @@ public class Resources : MonoBehaviour
 
     public bool CanBuy(float cost){
         return cost < money;
+    }
+
+    //Calculate money each turn
+    public float MoneyEachTick(){
+        var factories = FindObjectsOfType<Factory>();
+
+        return factories.Sum(factory => factory.data.passiveIncome);
     }
 }

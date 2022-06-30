@@ -6,6 +6,7 @@ public class House : Building
     public HouseData data;
 
     private void Awake(){
+        //Subscribe methods
         EventManager.current.OnClickEvent += OnHouseClick;
         EventManager.current.OnBuildEvent += OnBuild;
         EventManager.current.OnTickEvent += OnTick;
@@ -34,6 +35,9 @@ public class House : Building
 
     private void OnRemove(int id){
         if(this.id != id) return;
+        
+        //Unsubscribe from methods
+        EventManager.current.OnClickEvent -= OnHouseClick;
         EventManager.current.OnTickEvent -= OnTick;
         EventManager.current.OnRemoveEvent -= OnRemove;
     }

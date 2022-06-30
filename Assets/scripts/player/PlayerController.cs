@@ -79,9 +79,11 @@ public class PlayerController : MonoBehaviour
 
         //check if hit was a building
         if(hit.transform.gameObject.GetComponent<Building>() == null) return;
-        
-        if(isInRemoveMode)
+
+        if (isInRemoveMode){
             RemoveBuilding(hit);
+            return; //Cancels out the on click method
+        }
         
         //Gets the buildingId
         int buildingId = GetBuildingId(hit);
