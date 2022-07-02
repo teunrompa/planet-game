@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Resources : MonoBehaviour
@@ -84,10 +85,23 @@ public class Resources : MonoBehaviour
         return cost < money;
     }
 
-    //Calculate money each turn
-    public float MoneyEachTick(){
+    //Calculate the total amount off money added each tick
+    public static float TotalMoneyAddedEachTick(){
         var factories = FindObjectsOfType<Factory>();
 
         return factories.Sum(factory => factory.data.passiveIncome);
+    }
+
+    //Calculate the total amount off population added each tick
+    public static float TotalPopulationAddedEachTick(){
+        var houses = FindObjectsOfType<House>();
+        
+        return houses.Sum(house => house.data.populationOnTick);
+    }
+
+    public static float TotalPopulationRemovedEachTick(){
+        var factories = FindObjectsOfType<Factory>();
+
+        return factories.Sum(factory => factory.data.populationDecreaseOnTick);
     }
 }

@@ -30,7 +30,7 @@ public class House : Building
     }
 
     private void OnTick(){
-        Resources.current.AddPopulation(data.populationToAdd);   
+        Resources.current.AddPopulation(data.populationOnTick);   
     }
 
     private void OnRemove(int id){

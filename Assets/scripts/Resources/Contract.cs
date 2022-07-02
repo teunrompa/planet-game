@@ -9,7 +9,7 @@ public class Contract : MonoBehaviour
 {
     [SerializeField] public float moneyToReach;
     [SerializeField] private float deadline;
-    
+
     private void Update(){
         deadline -= Time.deltaTime;
     }
@@ -27,4 +27,9 @@ public class Contract : MonoBehaviour
     public float GetMoneyToReach(){
         return moneyToReach;
     }
+
+    public int GetTimeTillDealine(){
+        return (int)deadline;
+    }
+
 }

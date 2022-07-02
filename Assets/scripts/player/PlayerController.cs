@@ -57,6 +57,9 @@ public class PlayerController : MonoBehaviour
         _buildSpots = FindObjectsOfType<BuildingSpot>(true);
         
         foreach (var buildingSpot in _buildSpots){
+            
+            if(buildingSpot.isBuildOn) continue;
+            
             buildingSpot.gameObject.SetActive(buildMode);
         }
     }
@@ -99,6 +102,14 @@ public class PlayerController : MonoBehaviour
         if (hit.transform.gameObject.GetComponent<BuildingSpot>() != null) return;
         
         Destroy(hit.transform.gameObject);
+
+        //Search for buildingSpot in building types
+        foreach (var buildingType in buildingTypes){
+            if (buildingType.GetComponent<BuildingSpot>() == null) continue;
+
+            //Instantiate the building spot at previous location
+            Instantiate(buildingType, hit.transform.position, hit.transform.rotation);
+        }
     }
     
     //Checks if the building selector is between 0 or the max and sets it

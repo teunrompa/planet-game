@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider))]
 public class BuildingSpot : Building
 {
     //We use the player controller to determine the selected building
@@ -14,6 +15,9 @@ public class BuildingSpot : Building
     
     public override void Start() {
         base.Start();
+        
+        //Disable the object at start
+        gameObject.SetActive(false);
         
         EventManager.current.OnClickEvent += Build;
         _controller = PlayerController.current;
@@ -46,8 +50,8 @@ public class BuildingSpot : Building
         Resources.current.SubTractMoney(SelectBuilding().cost);
 
         isBuildOn = true;
-        //if there is a building placed then disable the game object
-        gameObject.SetActive(!isBuildOn);
+        //if there is a building placed then destroy the game object
+        Destroy(gameObject);
     }
     
     private Building SelectBuilding(){
