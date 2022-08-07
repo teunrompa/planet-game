@@ -28,7 +28,7 @@ public class Contract : MonoBehaviour
         return moneyToReach;
     }
 
-    public int GetTimeTillDealine(){
+    public int GetTimeTillDeadline(){
         return (int)deadline;
     }
 

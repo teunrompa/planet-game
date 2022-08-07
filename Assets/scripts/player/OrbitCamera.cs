@@ -1,12 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Search;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 
-[RequireComponent(typeof(Camera))]
 public class OrbitCamera : MonoBehaviour
 {
 
@@ -21,7 +15,7 @@ public class OrbitCamera : MonoBehaviour
 
     private Vector3 focusPoint;
 
-    private bool CameraDisabled = false;
+    private bool CameraDisabled;
     
     private void LateUpdate()
     {

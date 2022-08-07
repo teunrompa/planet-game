@@ -28,7 +28,7 @@ public class ResourceViewer : MonoBehaviour
                          Resources.TotalMoneyAddedEachTick();
 
 
-        deadlineText.text = "Deadline: " + contract.GetTimeTillDealine();
+        deadlineText.text = "Deadline: " + contract.GetTimeTillDeadline();
 
         if (contract.ContractMoneyReached(Resources.current.money)){
             print("Contract completed");

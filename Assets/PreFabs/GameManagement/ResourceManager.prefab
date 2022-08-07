@@ -65,7 +65,7 @@ MonoBehaviour:
   money: 2000
   globalPopulation: 200
   maxPopulation: 300
-  tickSpeed: 1
+  tickSpeed: 2
 --- !u!114 &1198481168720880749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,5 +78,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c42f502499a6c94683f4d6e8b23e538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyToReach: 4000
-  deadline: 1200
+  moneyToReach: 10000
+  deadline: 1500
