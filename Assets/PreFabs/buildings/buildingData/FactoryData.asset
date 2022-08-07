@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc5c7934fa3e61041895697b808a524b, type: 3}
   m_Name: FactoryData
   m_EditorClassIdentifier: 
-  moneyOnClick: 200
+  moneyOnClick: 10
   passiveIncome: 20
   populationDeathOnClick: 20
   populationRemovedOnBuild: 10

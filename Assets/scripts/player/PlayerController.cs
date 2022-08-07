@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public GameObject[] buildingTypes;
 
     private BuildingSpot[] _buildSpots;
+
+    [FormerlySerializedAs("uiButtons")] [SerializeField] private GameObject buildingTypeButtons;
     
     private void Awake(){
         current = this;
@@ -48,6 +51,7 @@ public class PlayerController : MonoBehaviour
         isInBuildMode = !isInBuildMode;
         
         //Make building spots visible
+        buildingTypeButtons.SetActive(isInBuildMode);
         ToggleBuildSpots(isInBuildMode);
     }
 
@@ -82,7 +86,7 @@ public class PlayerController : MonoBehaviour
 
         //check if hit was a building
         if(hit.transform.gameObject.GetComponent<Building>() == null) return;
-
+        
         if (isInRemoveMode){
             RemoveBuilding(hit);
             return; //Cancels out the on click method
